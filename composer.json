@@ -1,0 +1,21 @@
+{
+    "name": "sumanion/laravel-cloudflare",
+    "type": "laravel-package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ion Suman",
+            "email": "sumanion122@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0",
+        "laravel/framework": ">=5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "SumanIon\\CloudFlare\\" : "src/"
+        }
+    }
+}
