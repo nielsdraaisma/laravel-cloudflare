@@ -4,13 +4,15 @@
 This [Laravel](https://laravel.com/) package helps to determine real client IP address and
 current client country when using [CloudFlare](https://cloudflare.com).
 
-### Installation
+## Installation
+
+From the command line, run:
 
 ```
 composer require sumanion/laravel-cloudflare
 ```
 
-### Usage
+## Usage
 
 - `SumanIon\CloudFlare\CloudFlare::ip():string` - Determine current client IP address.
   It also has a helper function `ip()`.
