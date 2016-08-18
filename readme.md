@@ -1,5 +1,5 @@
 
-# CloudFlare
+# CloudFlare for Laravel
 
 This [Laravel](https://laravel.com/) package helps to determine real client IP address and
 current client country when using [CloudFlare](https://cloudflare.com).
