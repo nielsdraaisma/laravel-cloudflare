@@ -1,5 +1,6 @@
 {
     "name": "sumanion/laravel-cloudflare",
+    "description": "Simple way to determine real client IP and country when using CloudFlare",
     "type": "laravel-package",
     "license": "MIT",
     "authors": [
