@@ -1,8 +1,9 @@
 
 # CloudFlare for Laravel
 
-This [Laravel](https://laravel.com/) package helps to determine real client IP address and
-current client country when using [CloudFlare](https://cloudflare.com).
+This [Laravel](https://laravel.com/) package helps to determine 
+the IP address and current country of the client 
+when using [CloudFlare](https://cloudflare.com).
 
 ## Installation
 
@@ -12,15 +13,25 @@ From the command line, run:
 composer require sumanion/laravel-cloudflare
 ```
 
-## Usage
+## Available Methods
 
-- `SumanIon\CloudFlare\CloudFlare::ip():string` - Determine current client IP address.
-  It also has a helper function `ip()`.
+- [`SumanIon\CloudFlare::isTrustedRequest():bool`]() - 
+  Returns `true` when current request is comming from *CloudFlare*, 
+  otherwise returns `false`.
 
-> Used because when using *CloudFlare* nameservers the default IP address
-  is the address from *CloudFlare* servers, not the client's IP address.
+- [`SumanIon\CloudFlare::onTrustedRequest(Closure):mixed`]() - 
+  Executes the `Callback` and returns it's return value 
+  when current request is comming from *CloudFlare*, otherwise returns `null`.
 
-- `SumanIon\CloudFlare\CloudFlare::country():string` - Determine current country of the client.
-  It also has a helper function `country()`.
+- [`SumanIon\CloudFlare::ip():string`]() - 
+  Returns current IP address of the client.
 
-> When using *CloudFlare*, it sends current client country in the request headers.
+> **Note:** When a website is using *CloudFlare* nameservers 
+> the `$_SERVER['REMOTE_ADDR']` points to *CloudFlare*, and we have
+> to do extra validation to get "the real" IP address of the client.
+
+- [`SumanIon\CloudFlare::country():string`]() - 
+  Returns current country of the client.
+
+> **Note:** *CloudFlare* usually sends a `CF_IPCOUNTRY` HTTP header
+> with current country of the client.

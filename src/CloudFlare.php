@@ -1,14 +1,15 @@
 <?php
 
-namespace SumanIon\CloudFlare;
+namespace SumanIon;
 
-use Request;
+use Closure;
+use Illuminate\Support\Facades\Request;
 use Symfony\Component\HttpFoundation\IpUtils;
 
 class CloudFlare
 {
     /**
-     * List of IP's used by CloudFlare
+     * List of IP's used by CloudFlare.
      * @var array
      */
     protected static $ips = [
@@ -35,7 +36,7 @@ class CloudFlare
     ];
 
     /**
-     * Check if request is coming from CloudFlare servers
+     * Checks if current request is coming from CloudFlare servers.
      *
      * @return bool
      */
@@ -45,36 +46,40 @@ class CloudFlare
     }
 
     /**
-     * Determine the real IP of the client
+     * Executes a callback on a trusted request.
+     *
+     * @param  Closure $callback
+     *
+     * @return mixed
+     */
+    public static function onTrustedRequest(Closure $callback)
+    {
+        if (static::isTrustedRequest()) {
+            return $callback();
+        }
+    }
+
+    /**
+     * Determines "the real" IP address from the current request.
      *
      * @return string
      */
     public static function ip():string
     {
-        if (static::isTrustedRequest()) {
-
-            $cf_ip = Request::header('CF_CONNECTING_IP');
-
-            if (false !== filter_var($cf_ip, FILTER_VALIDATE_IP)) {
-
-                return $cf_ip;
-            }
-        }
-
-        return Request::ip();
+        return static::onTrustedRequest(function () {
+            return filter_var(Request::header('CF_CONNECTING_IP'), FILTER_VALIDATE_IP);
+        }) ?: Request::ip();
     }
 
     /**
-     * Determine current country of the client
+     * Determines country from the current request.
      *
      * @return string
      */
     public static function country():string
     {
-        if (static::isTrustedRequest()) {
-            return Request::header('CF_IPCOUNTRY') ?? '';
-        }
-
-        return '';
+        return static::onTrustedRequest(function () {
+            return Request::header('CF_IPCOUNTRY');
+        }) ?: '';
     }
 }
