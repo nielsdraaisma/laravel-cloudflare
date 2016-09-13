@@ -16,12 +16,12 @@ composer require sumanion/laravel-cloudflare
 ## Available Methods
 
 - [`SumanIon\CloudFlare::isTrustedRequest():bool`]() - 
-  Returns `true` when current request is comming from *CloudFlare*, 
+  Returns `true` when current request is coming from *CloudFlare*, 
   otherwise returns `false`.
 
 - [`SumanIon\CloudFlare::onTrustedRequest(Closure):mixed`]() - 
   Executes the `Callback` and returns it's return value 
-  when current request is comming from *CloudFlare*, otherwise returns `null`.
+  when current request is coming from *CloudFlare*, otherwise returns `null`.
 
 - [`SumanIon\CloudFlare::ip():string`]() - 
   Returns current IP address of the client.
