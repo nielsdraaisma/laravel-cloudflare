@@ -23,10 +23,14 @@ class CloudFlareTest extends TestCase
     public function test_it_can_execute_callbacks_on_trusted_requests()
     {
         Request::shouldReceive('ip')->once()->andReturn($this->ip);
-        $this->assertNull(CloudFlare::onTrustedRequest(function () { return true; }));
+        $this->assertNull(CloudFlare::onTrustedRequest(function () {
+            return true;
+        }));
 
         Request::shouldReceive('ip')->once()->andReturn($this->cfIp);
-        $this->assertTrue(CloudFlare::onTrustedRequest(function () { return true; }));
+        $this->assertTrue(CloudFlare::onTrustedRequest(function () {
+            return true;
+        }));
     }
 
     public function test_it_can_determine_the_real_ip_address()
